@@ -1,0 +1,42 @@
+<view class="calendar calendar-active">
+  <!--  -->
+  <view class="cld-title">
+    <image class="cld-arrow click-larger" src="../../images/icon_about_normal.png" catchtap='monthSwiper' data-flag="0">
+    </image>
+    {{ dateTip }}
+    <image class="cld-arrow click-larger" src="../../images/icon_about_normal.png" catchtap='monthSwiper'>
+    </image>
+  </view>
+  <!--  -->
+  <view class="cld-days">
+    <view class="cld-day-item">日</view>
+    <view class="cld-day-item">一</view>
+    <view class="cld-day-item">二</view>
+    <view class="cld-day-item">三</view>
+    <view class="cld-day-item">四</view>
+    <view class="cld-day-item">五</view>
+    <view class="cld-day-item">六</view>
+  </view>
+  <!--  -->
+  <view class="cld-days">
+    <swiper current="{{ currMonthIndex }}" circular="true" bindchange="calendarSwiper" style="height: {{ calendarHeight }}rpx;">
+      <swiper-item>
+        <block wx:for="{{ dayList[0].days }}" wx:key="{{ index }}">
+          <view class="cld-day-item">{{ item.day }}</view>
+        </block>
+      </swiper-item>
+      <!--  -->
+      <swiper-item>
+        <block wx:for="{{ dayList[1].days }}" wx:key="{{ index }}">
+          <view class="cld-day-item">{{ item.day }}</view>
+        </block>
+      </swiper-item>
+      <!--  -->
+      <swiper-item>
+        <block wx:for="{{ dayList[2].days }}" wx:key="{{ index }}">
+          <view class="cld-day-item">{{ item.day }}</view>
+        </block>
+      </swiper-item>
+    </swiper>
+  </view>
+</view>
