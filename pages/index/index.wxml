@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-  <text class="current-date">{{displayMonth}}</text>
+  <text class="current-date">{{displayYear}}年{{displayMonth}}月</text>
   <swiper class="swiper" current="{{displayMonthIndex}}" circular="true" bindchange="onMonthChange">
     <swiper-item wx:for="{{months}}" wx:for-item="monthItem">
       <ul class="week">
@@ -13,8 +13,8 @@
         <li class="weekend">六</li>
       </ul>
       <ul class="days">
-        <li wx:for="{{monthItem.days}}" wx:key="*this" wx:for-item="dayItem">
-          <text class="day">{{ dayItem.day}}</text>
+        <li wx:for="{{monthItem.days}}" wx:key="*this" wx:for-item="dayItem" class="{{dayItem.date == todayDate ? 'today' : ''}}">
+          <text class="day {{dayItem.month != monthItem.month+1 ? 'gray' : ''}}">{{ dayItem.day}}</text>
         </li>
       </ul>
     </swiper-item>

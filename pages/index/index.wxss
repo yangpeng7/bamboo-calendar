@@ -9,7 +9,7 @@
 
 .swiper {
   width: 100%;
-  height: 50vh !important;
+  height: 70vh !important;
 }
 
 .current-date {
@@ -34,7 +34,7 @@
   flex-wrap: wrap;
   width: 100%;
   justify-content: space-between;
-  height: 600rpx !important;
+  height: 500rpx !important;
 }
 
 .days li {
@@ -50,8 +50,17 @@
   height: 120rpx;
   color: #161616;
   font-size: 18px;
+  font-weight: bold;
 }
 
-day {
+.days .gray {
+  color: lightgray;
+}
+
+.today {
+  background: rgba(0, 137, 255, .1);
+}
+
+.day {
   color: #000;
 }

@@ -9,7 +9,9 @@ Page({
   data: {
     displayMonthIndex: 0,
     displayMonth: "",
+    displayYear: "",
     currentMonth: "",
+    todayDate: dayjs().format('YYYY-MM-DD'),
     months: [],
   },
   /**
@@ -50,7 +52,8 @@ Page({
       months[2] = this.data.months[displayMonthIndex];
     }
     this.setData({
-      displayMonth: year + "年" + (month + 1) + "月",
+      displayMonth: month + 1,
+      displayYear: year,
       months: months,
       displayMonthIndex: displayMonthIndex
     })
@@ -70,12 +73,16 @@ Page({
     console.log(month, "ddddddd");
     this.setData({
       currentMonth: currentMonth,
-      displayMonth: year + "年" + (month + 1) + "月"
+      displayYear: year,
+      displayMonth: month + 1,
+      
     })
     console.log(year, month, new Date().getMonth());
     this.setData({
       months: [this.getDisplayMonthDays(year, month), this.getDisplayMonthDays(year, month + 1), this.getDisplayMonthDays(year, month - 1)]
     })
+    console.log(this.data.todayDate)
+    console.log(this.data.months)
   },
 
   /**
