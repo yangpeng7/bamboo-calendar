@@ -4,6 +4,7 @@ var customParseFormat = require("dayjs/plugin/customParseFormat").default;
 var advancedFormat = require('dayjs/plugin/advancedFormat').default;
 dayjs.extend(advancedFormat);
 dayjs.extend(customParseFormat);
+const solar = require('../../utils/calendar.js')
 
 Page({
   data: {
@@ -70,18 +71,14 @@ Page({
     let currentMonth = dayjs();
     let year = currentMonth.year()
     let month = currentMonth.month()
-    console.log(month, "ddddddd");
     this.setData({
       currentMonth: currentMonth,
       displayYear: year,
       displayMonth: month + 1,
-      
     })
-    console.log(year, month, new Date().getMonth());
     this.setData({
       months: [this.getDisplayMonthDays(year, month), this.getDisplayMonthDays(year, month + 1), this.getDisplayMonthDays(year, month - 1)]
     })
-    console.log(this.data.todayDate)
     console.log(this.data.months)
   },
 
@@ -96,10 +93,16 @@ Page({
     for (let i = 0 - preDays; i < 42 - preDays; i++) {
       let preDate = first.add(i, 'day');
       let date = preDate.format('YYYY-MM-DD');
+
+      let solarDate = solar.calendar.solar2lunar(preDate.format('YYYY'), preDate.format('M'), preDate.format('D'))
+
       displayDays.push({
         date: date,
         day: preDate.format('D'),
         month: preDate.format('M'),
+        lunarDay: solarDate.IDayCn,
+        lunarMonth: solarDate.IMonthCn,
+        solarTerm: solarDate.Term,
       })
     }
     //所有要显示的这个月的年月日，有一些是需要置灰的
@@ -112,4 +115,9 @@ Page({
   onLoad() {
     this.initData();
   },
+  onShareAppMessage() {
+    return {
+      title: "" + this.data.displayYear + "年" + this.data.displayMonth + "月",
+    }
+  }
 })

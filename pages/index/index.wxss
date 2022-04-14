@@ -13,9 +13,10 @@
 }
 
 .current-date {
-  font-size: 18px;
+  font-size: 22px;
   padding: 10px;
-  color: gray;
+  color: #588183;
+  font-weight: bold;
 }
 
 .week {
@@ -40,6 +41,7 @@
 .days li {
   float: left;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex: 1;
@@ -49,7 +51,7 @@
   max-width: 14.2857%;
   height: 120rpx;
   color: #161616;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -63,4 +65,11 @@
 
 .day {
   color: #000;
+}
+
+.lunar-day {
+  color: #000;
+  font-size: 12px;
+  font-weight: normal;
+  color: #808A87;
 }

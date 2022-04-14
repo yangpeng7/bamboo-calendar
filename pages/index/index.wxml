@@ -15,6 +15,7 @@
       <ul class="days">
         <li wx:for="{{monthItem.days}}" wx:key="*this" wx:for-item="dayItem" class="{{dayItem.date == todayDate ? 'today' : ''}}">
           <text class="day {{dayItem.month != monthItem.month+1 ? 'gray' : ''}}">{{ dayItem.day}}</text>
+          <text class="lunar-day {{dayItem.month != monthItem.month+1 ? 'gray' : ''}}">{{ dayItem.lunarDay}}</text>
         </li>
       </ul>
     </swiper-item>
