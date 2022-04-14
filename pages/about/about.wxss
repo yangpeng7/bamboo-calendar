@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.icon {
+  width: 60px !important;
+  height: 60px !important;
+}
+
+.app-name {
+  font-size: 16px;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #588183;
+}
+
+.app-slogan {
+  font-size: 14px;
+  margin-top: 10px;
+  color: darkgray;
+  margin-bottom: 30px;
+}
+
+.service {
+  font-size: 14px;
+}
+
+.share {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 38vh;
+}

@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
   <text class="current-date">{{displayYear}}年{{displayMonth}}月</text>
-  <swiper class="swiper" current="{{displayMonthIndex}}" circular="true" bindchange="onMonthChange">
+  <swiper class="swiper" current="{{displayMonthIndex}}" circular="true" duration="300" easing-function="easeOutCubic" bindchange="onMonthChange">
     <swiper-item wx:for="{{months}}" wx:for-item="monthItem">
       <ul class="week">
         <li class="weekend">日</li>
@@ -13,12 +13,20 @@
         <li class="weekend">六</li>
       </ul>
       <ul class="days">
-        <li wx:for="{{monthItem.days}}" wx:key="*this" wx:for-item="dayItem" class="{{dayItem.date == todayDate ? 'today' : ''}}">
+        <li wx:for="{{monthItem.days}}" wx:for-item="dayItem" class="{{dayItem.date == todayDate ? 'today' : dayItem.date == selectedDate ? 'selected-date' : ''}}" data-date="{{dayItem.date}}" bindtap="tapDate">
           <text class="day {{dayItem.month != monthItem.month+1 ? 'gray' : ''}}">{{ dayItem.day}}</text>
-          <text class="lunar-day {{dayItem.month != monthItem.month+1 ? 'gray' : ''}}">{{ dayItem.lunarDay}}</text>
+          <!-- 国务院节假日 -->
+          <text wx:if="{{dayItem.overtime != null }}" class="overtime {{dayItem.month != monthItem.month+1 ? 'gray' : ''}}">{{ dayItem.overtime}}</text>
+
+          <text wx:if="{{dayItem.festival != null }}" class="solar-term">{{ dayItem.festival}}</text>
+          <text wx:elif="{{dayItem.lunarFestival != null }}" class="solar-term">{{ dayItem.lunarFestival}}</text>
+          <text wx:elif="{{dayItem.solarTerm != null }}" class="solar-term">{{ dayItem.solarTerm}}</text>
+          <text wx:else class="lunar-day">{{ dayItem.lunarDay}}</text>
+
         </li>
       </ul>
     </swiper-item>
   </swiper>
-
+  <text class="solar-date">农历{{selectedDateSolar}}</text>
+  <text class="solar-date-info">{{selectedDateSolarInfo}}</text>
 </view>

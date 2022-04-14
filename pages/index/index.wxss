@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: start;
   align-self: start;
-  padding: 0;
+  padding: 5px;
 }
 
 .swiper {
@@ -53,6 +53,16 @@
   color: #161616;
   font-size: 20px;
   font-weight: bold;
+  position: relative;
+}
+
+.overtime {
+  font-size: 10px;
+  font-weight: normal;
+  position: absolute;
+  top: 5px;
+  right: 4px;
+  color: #B0171F;
 }
 
 .days .gray {
@@ -60,7 +70,13 @@
 }
 
 .today {
-  background: rgba(0, 137, 255, .1);
+  border: 2px solid #588183;
+  border-radius: 12px;
+}
+
+.selected-date {
+  border: 2px solid darkgray;
+  border-radius: 12px;
 }
 
 .day {
@@ -68,8 +84,29 @@
 }
 
 .lunar-day {
-  color: #000;
   font-size: 12px;
   font-weight: normal;
-  color: #808A87;
+  color: darkgray;
+}
+
+.solar-term {
+  font-size: 12px;
+  font-weight: normal;
+  color: #588183;
+}
+
+.solar-date {
+  font-size: 13px;
+  font-weight: normal;
+  color: black;
+  margin-left: 10px;
+  margin-top: 3px;
+}
+
+.solar-date-info {
+  font-size: 12px;
+  font-weight: normal;
+  color: #696969;
+  margin-left: 10px;
+  margin-top: 3px;
 }

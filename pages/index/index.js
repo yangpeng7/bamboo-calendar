@@ -11,8 +11,10 @@ Page({
     displayMonthIndex: 0,
     displayMonth: "",
     displayYear: "",
-    currentMonth: "",
     todayDate: dayjs().format('YYYY-MM-DD'),
+    selectedDate: dayjs().format('YYYY-MM-DD'),
+    selectedDateSolar: "",
+    selectedDateSolarInfo: "",
     months: [],
   },
   /**
@@ -34,10 +36,11 @@ Page({
    * months[0]的数据为下一个月（9月）；
    */
   onMonthChange(e) {
-    console.log(e.detail.current);
     let displayMonthIndex = e.detail.current;
     let { month, year } = this.data.months[displayMonthIndex]
-
+    let dateMonth = new Date(year, month, 1);
+    year = dateMonth.getFullYear()
+    month = dateMonth.getMonth()
     let months = [[], [], []];
     if (displayMonthIndex == 0) {
       months[0] = this.data.months[displayMonthIndex];
@@ -52,13 +55,17 @@ Page({
       months[1] = this.getDisplayMonthDays(year, month - 1);
       months[2] = this.data.months[displayMonthIndex];
     }
+    let selectedDate = dayjs(new Date(year, month, new Date(this.data.selectedDate).getDate())).format('YYYY-MM-DD')
+    let solarDate = solar.calendar.solar2lunar(year, month + 1, new Date(this.data.selectedDate).getDate());
     this.setData({
-      displayMonth: month + 1,
       displayYear: year,
+      displayMonth: month + 1,
       months: months,
-      displayMonthIndex: displayMonthIndex
+      displayMonthIndex: displayMonthIndex,
+      selectedDate: selectedDate,
+      selectedDateSolar: solarDate.IMonthCn + solarDate.IDayCn,
+      selectedDateSolarInfo: solarDate.gzYear + solarDate.Animal + "年 " + solarDate.gzMonth + "月 " + solarDate.gzDay + "日",
     })
-    console.log(this.data.months);
   },
 
   /**
@@ -68,20 +75,29 @@ Page({
    * months[2]:下个月
    */
   initData() {
-    let currentMonth = dayjs();
-    let year = currentMonth.year()
-    let month = currentMonth.month()
+    let currentMonth = new Date();
+    let year = currentMonth.getFullYear()
+    let month = currentMonth.getMonth()
     this.setData({
-      currentMonth: currentMonth,
       displayYear: year,
       displayMonth: month + 1,
     })
+    let solarDate = solar.calendar.solar2lunar(year, month + 1, currentMonth.getDate());
     this.setData({
-      months: [this.getDisplayMonthDays(year, month), this.getDisplayMonthDays(year, month + 1), this.getDisplayMonthDays(year, month - 1)]
+      months: [this.getDisplayMonthDays(year, month), this.getDisplayMonthDays(year, month + 1), this.getDisplayMonthDays(year, month - 1)],
+      selectedDateSolar: solarDate.IMonthCn + solarDate.IDayCn,
+      selectedDateSolarInfo: solarDate.gzYear + solarDate.Animal + "年 " + solarDate.gzMonth + "月 " + solarDate.gzDay + "日",
     })
-    console.log(this.data.months)
   },
-
+  tapDate(event) {
+    let date = new Date(event.currentTarget.dataset.date)
+    let solarDate = solar.calendar.solar2lunar(date.getFullYear(), date.getMonth() + 1, date.getDate());
+    this.setData({
+      selectedDate: event.currentTarget.dataset.date,
+      selectedDateSolar: solarDate.IMonthCn + solarDate.IDayCn,
+      selectedDateSolarInfo: solarDate.gzYear + solarDate.Animal + "年 " + solarDate.gzMonth + "月 " + solarDate.gzDay + "日",
+    })
+  },
   /**
    * 获取将要显示的月的天数
    */
@@ -93,9 +109,7 @@ Page({
     for (let i = 0 - preDays; i < 42 - preDays; i++) {
       let preDate = first.add(i, 'day');
       let date = preDate.format('YYYY-MM-DD');
-
       let solarDate = solar.calendar.solar2lunar(preDate.format('YYYY'), preDate.format('M'), preDate.format('D'))
-
       displayDays.push({
         date: date,
         day: preDate.format('D'),
@@ -103,12 +117,15 @@ Page({
         lunarDay: solarDate.IDayCn,
         lunarMonth: solarDate.IMonthCn,
         solarTerm: solarDate.Term,
+        festival: solarDate.festival,
+        lunarFestival: solarDate.lunarFestival,
+        overtime: solar.calendar.stateCouncilDate(date)
       })
     }
     //所有要显示的这个月的年月日，有一些是需要置灰的
     return {
-      year: year,
-      month: month,
+      year: first.year(),
+      month: first.month(),
       days: displayDays
     }
   },

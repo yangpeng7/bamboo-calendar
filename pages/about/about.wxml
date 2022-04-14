@@ -1,0 +1,9 @@
+<view class="container">
+  <image class="icon" src="../../images/bamboo.png"></image>
+  <text class="app-name">竹叶日历</text>
+  <text class="app-slogan">一个有点简洁的日历应用</text>
+  <view class="share">
+    <button size="mini" open-type='share'><text class='service'>分享好友</text></button>
+    <button size="mini" open-type='contact'><text class='service'>联系客服</text></button>
+  </view>
+</view>
