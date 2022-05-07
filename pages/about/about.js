@@ -6,7 +6,7 @@ Page({
   onShareAppMessage() {
     return {
       title: "竹叶日历",
-      path: '/pages/index'
+      path: '/pages/index/index'
     }
   }
 })

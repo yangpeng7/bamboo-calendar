@@ -15,6 +15,8 @@ Page({
     selectedDate: dayjs().format('YYYY-MM-DD'),
     selectedDateSolar: "",
     selectedDateSolarInfo: "",
+    mothorsDay: "",
+    fathersDay: "",
     months: [],
   },
   /**
@@ -41,6 +43,10 @@ Page({
     let dateMonth = new Date(year, month, 1);
     year = dateMonth.getFullYear()
     month = dateMonth.getMonth()
+    this.setData({
+      mothorsDay: this.getMothorsDay(year),
+      fathersDay: this.getFathersDay(year),
+    })
     let months = [[], [], []];
     if (displayMonthIndex == 0) {
       months[0] = this.data.months[displayMonthIndex];
@@ -81,6 +87,8 @@ Page({
     this.setData({
       displayYear: year,
       displayMonth: month + 1,
+      mothorsDay: this.getMothorsDay(year),
+      fathersDay: this.getFathersDay(year),
     })
     let solarDate = solar.calendar.solar2lunar(year, month + 1, currentMonth.getDate());
     this.setData({
@@ -110,6 +118,7 @@ Page({
       let preDate = first.add(i, 'day');
       let date = preDate.format('YYYY-MM-DD');
       let solarDate = solar.calendar.solar2lunar(preDate.format('YYYY'), preDate.format('M'), preDate.format('D'))
+
       displayDays.push({
         date: date,
         day: preDate.format('D'),
@@ -117,7 +126,7 @@ Page({
         lunarDay: solarDate.IDayCn,
         lunarMonth: solarDate.IMonthCn,
         solarTerm: solarDate.Term,
-        festival: solarDate.festival,
+        festival: preDate.toDate().getTime() === this.data.mothorsDay.getTime() ? "母亲节" : (preDate.toDate().getTime() === this.data.fathersDay.getTime() ? "父亲节" : solarDate.festival),
         lunarFestival: solarDate.lunarFestival,
         overtime: solar.calendar.stateCouncilDate(date)
       })
@@ -129,6 +138,37 @@ Page({
       days: displayDays
     }
   },
+  //母亲节
+  getMothorsDay(year) {
+    let day = 1;
+    let date = new Date(year, 4, day);
+    let check = 0;
+    while (check < 2) {
+      if (date.getDay() === 0) {
+        if (++check >= 2) {
+          break;
+        }
+      }
+      date.setDate(++day);
+    }
+    return date;
+  },
+  // 父亲节
+  getFathersDay(year) {
+    let day = 1;
+    let date = new Date(year, 5, day);
+    let check = 0;
+    while (check < 3) {
+      if (date.getDay() === 0) {
+        if (++check >= 3) {
+          break;
+        }
+      }
+      date.setDate(++day);
+    }
+    return date;
+  },
+
   onLoad() {
     this.initData();
   },
