@@ -1,8 +1,6 @@
 Page({
-  data: {
-  },
-  onLoad: function (options) {
-  },
+  data: {},
+  onLoad: function (options) {},
   onShareAppMessage() {
     return {
       title: "竹叶日历",

@@ -53,9 +53,9 @@
   "libVersion": "2.19.4",
   "appid": "wx825a44ed0c4fb2ba",
   "projectname": "bamboo-calendar",
-  "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
-  }
+  },
+  "condition": {}
 }

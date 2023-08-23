@@ -39,7 +39,10 @@ Page({
    */
   onMonthChange(e) {
     let displayMonthIndex = e.detail.current;
-    let { month, year } = this.data.months[displayMonthIndex]
+    let {
+      month,
+      year
+    } = this.data.months[displayMonthIndex]
     let dateMonth = new Date(year, month, 1);
     year = dateMonth.getFullYear()
     month = dateMonth.getMonth()
@@ -47,7 +50,11 @@ Page({
       mothorsDay: this.getMothorsDay(year),
       fathersDay: this.getFathersDay(year),
     })
-    let months = [[], [], []];
+    let months = [
+      [],
+      [],
+      []
+    ];
     if (displayMonthIndex == 0) {
       months[0] = this.data.months[displayMonthIndex];
       months[1] = this.getDisplayMonthDays(year, month + 1);
